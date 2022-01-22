@@ -1,0 +1,54 @@
+<h3>Formularios Template</h3>
+<hr>
+<form (ngSubmit)="guardar(formUsuario)" #formUsuario="ngForm">
+
+  <div>
+    <div class="mb-3">
+      <label for="nombres" class="form-label">Nombres</label>
+      <input type="text"
+             class="form-control"
+             [class.is-invalid] = "nombres.invalid && nombres.touched"
+             id="nombres"
+             name="nombres"
+             [(ngModel)] = "usuario.nombres"
+             required
+             minlength="2"
+             #nombres="ngModel"
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="apellidos" class="form-label">Apellidos</label>
+      <input type="text"
+             class="form-control"
+             [class.is-invalid] = "apellidos.invalid && apellidos.touched"
+             id="apellidos"
+             name="apellidos"
+             ngModel
+             required
+             minlength="3"
+             #apellidos="ngModel"
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="correo" class="form-label">Correo Electrónico</label>
+      <input type="email"
+             class="form-control"
+             [class.is-invalid] = "correo.invalid && correo.touched"
+             pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+             id="correo"
+             name="correo"
+             ngModel
+             required
+             minlength="5"
+             #correo="ngModel"
+      >
+    </div>
+
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+
+</form>
