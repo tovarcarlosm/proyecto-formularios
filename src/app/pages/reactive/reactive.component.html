@@ -1,1 +1,60 @@
-<p>reactive works!</p>
+<h3>Formularios Reactives</h3>
+<hr>
+<form autocomplete="off" [formGroup]="formUsuario" (ngSubmit)="guardar()">
+
+  <div class="mb-3">
+    <label for="nombres" class="form-label">Nombres</label>
+    <input type="text"
+           class="form-control"
+           name="nombres"
+           id="nombres"
+           formControlName="nombre"
+           [class.is-invalid]="nombreNoValido"
+    >
+    <small *ngIf="nombreNoValido" class="text-danger">
+      Digite mínimo 3 letras
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label for="apellidos" class="form-label">Apellidos</label>
+    <input type="text"
+           class="form-control"
+           name="apellidos"
+           id="apellidos"
+           formControlName="apellido"
+           [class.is-invalid]="apellidoNoValido"
+    >
+    <small *ngIf="apellidoNoValido" class="text-danger">
+      El apellido es obligatorio
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email"
+           class="form-control"
+           name="email"
+           id="email"
+           formControlName="email"
+           [class.is-invalid]="emailNoValido"
+    >
+    <small *ngIf="emailNoValido" class="text-danger">
+      La estructura del email no es válida
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>
+
+<hr>
+<h4>Información del formulario</h4>
+<span>Estado del formulario: {{ formUsuario.valid }} </span>
+<br>
+<span>Estado: {{ formUsuario.status }} </span>
+
+<pre>
+  {{ formUsuario.value | json }}
+</pre>
