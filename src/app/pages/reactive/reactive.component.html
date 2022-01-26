@@ -45,6 +45,95 @@
   </div>
 
   <div class="mb-3">
+    <label for="contrasenia1" class="form-label">Contraseña</label>
+    <input type="text"
+           class="form-control"
+           name="contrasenia1"
+           id="contrasenia1"
+           formControlName="contrasenia1"
+           [class.is-invalid]="contrasenia1NoValida"
+    >
+    <small *ngIf="contrasenia1NoValida" class="text-danger">
+      La contraseña es requerida
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label for="contrasenia2" class="form-label">Repetir Contraseña</label>
+    <input type="text"
+           class="form-control"
+           name="contrasenia2"
+           id="contrasenia2"
+           formControlName="contrasenia2"
+           [class.is-invalid]="contrasenia2NoValida"
+    >
+    <small *ngIf="contrasenia2NoValida" class="text-danger">
+      La contraseña no coincide
+    </small>
+  </div>
+
+  <div class="mb-3" formGroupName="direccion">
+    <label class="form-label">Dirección</label>
+    <div class="col-12 mb-1">
+      <input type="text"
+             class="form-control"
+             placeholder="Nomenclatura"
+             formControlName="nomenclatura"
+             [class.is-invalid]="nomenclaturaNoValida"
+      >
+    </div>
+
+    <div class="col-12 mb-1">
+      <input type="text"
+             class="form-control"
+             placeholder="Barrio"
+             formControlName="barrio"
+             [class.is-invalid]="barrioNoValido"
+      >
+    </div>
+
+    <div class="col-12 mb-1">
+      <input type="text"
+             class="form-control"
+             placeholder="Ciudad"
+             formControlName="ciudad"
+             [class.is-invalid]="ciudadNoValida"
+      >
+    </div>
+  </div>
+
+  <div class="mb-3" >
+    <div class="col-12 mt-3">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Id</th>
+            <th>Comida</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="comidaFavorita">
+          <tr *ngFor="let control of comidaFavorita.controls; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <input type="text"
+                     class="form-control"
+                     [formControlName]="i"
+              >
+            </td>
+            <td>
+              <button class="btn btn-danger" type="button" (click)="eliminarComidaFavorita(i)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-info mb-5" type="button" (click)="agregarComidaFavorita()"> Agregar </button>
+    </div>
+  </div>
+
+  <div class="mb-3 mt-5">
     <button type="submit" class="btn btn-primary">Guardar</button>
   </div>
 </form>
