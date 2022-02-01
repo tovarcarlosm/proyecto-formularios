@@ -14,6 +14,7 @@ export class ReactiveComponent implements OnInit {
   constructor(private fb: FormBuilder, private validador: ValidadoresService) {
     this.crearFormulario();
     this.cargarDatosInicialesFormulario();
+    this.crearListeners();
   }
 
   ngOnInit(): void {
@@ -25,6 +26,10 @@ export class ReactiveComponent implements OnInit {
 
   get apellidoNoValido(){
     return this.formUsuario.get('apellido').invalid && this.formUsuario.get('apellido').touched
+  }
+
+  get usernameNoValido(){
+    return this.formUsuario.get('username').invalid && this.formUsuario.get('username').touched
   }
 
   get emailNoValido(){
@@ -66,9 +71,10 @@ export class ReactiveComponent implements OnInit {
         this.validador.noCarlos
       ] ],
       apellido: ['', Validators.required],
+      username: ['',,this.validador.existeUsername],
       email: ['', [
         Validators.required,
-        Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
+        Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,3}$')
       ] ],
       contrasenia1:['', Validators.required],
       contrasenia2:['', Validators.required],
@@ -78,16 +84,19 @@ export class ReactiveComponent implements OnInit {
         ciudad: ['', Validators.required],
       }),
       comidaFavorita: this.fb.array([])
+    }, {
+      validators: this.validador.passwordsIguales('contrasenia1', 'contrasenia2')
     })
   }
 
   cargarDatosInicialesFormulario(){
     this.formUsuario.setValue({
-      nombre: 'Carlos',
+      nombre: 'Mauricio',
       apellido: 'Tovar',
+      username: '',
       email: 'carlos@hotmail.com',
-      contrasenia1: "",
-      contrasenia2: "",
+      contrasenia1: "Hola",
+      contrasenia2: "Hola",
       direccion: {
         nomenclatura: 'Calle 7 # 3 - 8',
         barrio: 'Centro',
@@ -95,6 +104,12 @@ export class ReactiveComponent implements OnInit {
       },
       comidaFavorita: []
     })
+  }
+
+  crearListeners(){
+    /*this.formUsuario.valueChanges.subscribe(valor => console.log(valor));
+    this.formUsuario.statusChanges.subscribe(estado => console.log(estado));*/
+    this.formUsuario.get('email').statusChanges.subscribe(console.log)
   }
 
   agregarComidaFavorita(){

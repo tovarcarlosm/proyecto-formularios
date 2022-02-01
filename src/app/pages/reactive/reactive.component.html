@@ -31,6 +31,20 @@
   </div>
 
   <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input type="text"
+           class="form-control"
+           name="username"
+           id="username"
+           formControlName="username"
+           [class.is-invalid]="usernameNoValido"
+    >
+    <small *ngIf="usernameNoValido" class="text-danger">
+      El username ya existe!
+    </small>
+  </div>
+
+  <div class="mb-3">
     <label for="email" class="form-label">Email</label>
     <input type="email"
            class="form-control"
